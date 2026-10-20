@@ -1,17 +1,331 @@
-body {
+html,
+body,
+#root {
   margin: 0;
+  height: 100%;
+}
+
+body {
   font-family: system-ui, sans-serif;
-  background: #f6f4ef;
+  font-size: 14px;
+  background: #e4e2dc;
   color: #1c1c1c;
 }
 
-main {
+.loading,
+.error {
   max-width: 36rem;
   margin: 20vh auto 0;
   padding: 0 1rem;
-  line-height: 1.5;
 }
 
 .error {
   color: #b42318;
+}
+
+.app {
+  position: relative;
+  height: 100%;
+}
+
+.panel,
+.box {
+  background: rgba(255, 255, 255, 0.93);
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  padding: 12px 14px;
+  line-height: 1.4;
+  max-height: calc(100% - 70px);
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.panel {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 340px;
+  max-width: calc(100% - 24px);
+}
+
+/* the right column: mode and Explore buttons, the Explore box, the legend */
+.side {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 240px;
+  max-height: calc(100% - 50px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.side > * {
+  pointer-events: auto;
+  flex: none;
+}
+
+.side .box {
+  max-height: none;
+}
+
+.side .explore {
+  flex: 0 1 auto;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.side .legend {
+  flex: 0 1 auto;
+  min-height: 0;
+}
+
+.toolbar {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.toolbar button,
+.route button {
+  padding: 6px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  font-weight: 600;
+}
+
+.toolbar button[aria-expanded='true'] {
+  background: #1c1c1c;
+  color: #fff;
+}
+
+.explore p {
+  margin: 6px 0;
+}
+
+.choices label {
+  display: block;
+  padding: 2px 0;
+  cursor: pointer;
+}
+
+.choices input {
+  margin: 0 6px 0 0;
+  vertical-align: -1px;
+}
+
+.count,
+.note {
+  color: #666;
+  font-size: 12px;
+}
+
+.note {
+  display: block;
+}
+
+/* the list of places and the route, in the left panel */
+.explore-list,
+.route {
+  margin-top: 12px;
+}
+
+.explore-list h2,
+.route h2 {
+  display: flex;
+  align-items: center;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 13px;
+  color: #1c1c1c;
+}
+
+.explore-list p,
+.route p {
+  margin: 4px 0;
+}
+
+.explore-list ol {
+  margin: 4px 0 0;
+  padding: 0 0 0 22px;
+  max-height: 180px;
+  overflow-y: auto;
+  font-size: 12px;
+}
+
+.route {
+  padding: 8px 10px;
+  border-left: 3px solid #f26b00;
+  background: #fff4ea;
+  border-radius: 3px;
+}
+
+.route .big {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.route button {
+  margin-top: 6px;
+  box-shadow: none;
+  padding: 4px 10px;
+}
+
+button.link {
+  background: none;
+  border: 0;
+  padding: 1px 0;
+  color: #1c4f86;
+  text-align: left;
+  text-decoration: underline;
+  text-decoration-color: rgba(28, 79, 134, 0.35);
+}
+
+button.link.on {
+  font-weight: 700;
+  color: #d81b7a;
+}
+
+h1 {
+  font-size: 16px;
+  margin: 0 0 4px;
+}
+
+h2 {
+  font-size: 12px;
+  margin: 0 0 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #555;
+}
+
+.legend ul + h2 {
+  margin-top: 10px;
+}
+
+.hint {
+  margin: 0 0 8px;
+  color: #555;
+}
+
+.message {
+  margin: 0 0 8px;
+  padding: 6px 8px;
+  background: #fbeee0;
+  border-radius: 4px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 4px 6px 4px 0;
+  border-bottom: 1px solid #e6e3dc;
+  vertical-align: top;
+}
+
+th {
+  font-weight: 600;
+  font-size: 12px;
+  color: #555;
+}
+
+.unknown {
+  display: block;
+  font-size: 12px;
+  color: #777;
+}
+
+.method {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #444;
+}
+
+.method p {
+  margin: 0 0 6px;
+}
+
+.legend ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.legend li {
+  display: flex;
+  align-items: center;
+  padding: 1px 0;
+}
+
+.swatch {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  margin-right: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  flex: none;
+  vertical-align: -1px;
+}
+
+.controls {
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: #666;
+}
+
+.attribution {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 4px 10px;
+  font-size: 11px;
+  background: rgba(255, 255, 255, 0.85);
+  color: #444;
+}
+
+@media (max-width: 700px) {
+  .side {
+    top: auto;
+    bottom: 40px;
+    max-height: 45%;
+    width: 220px;
+  }
+  .panel {
+    width: calc(100% - 24px);
+  }
+  .panel {
+    max-height: 45%;
+  }
+}
+
+/* "Route to a point": a switch that stays dark while it is on */
+.explore button.toggle {
+  margin-top: 8px;
+  padding: 4px 10px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  background: #fff;
+  font-weight: 600;
+}
+
+.explore button.toggle[aria-pressed='true'] {
+  background: #f26b00;
+  border-color: #f26b00;
+  color: #fff;
 }
